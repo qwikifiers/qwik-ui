@@ -26,3 +26,10 @@ export async function recordPressEvents(target: Locator) {
     return seen ? seen.split(' ') : [];
   };
 }
+
+export async function centerOf(target: Locator) {
+  const box = await target.boundingBox();
+  assertBoundingBoxExists(box);
+
+  return { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+}

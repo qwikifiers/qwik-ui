@@ -17,8 +17,7 @@ import { modalContextId } from './modal-context';
 import styles from './modal.css?inline';
 import { useModal } from './use-modal';
 import { isServer } from '@builder.io/qwik/build';
-import { markScrollable } from '@fluejs/noscroll';
-import { pageScroll } from './modal-page-scroll';
+import { markScrollableElements, pageScroll } from '../../utils/page-scroll';
 
 export type ModalProps = Omit<PropsOf<'dialog'>, 'open'> & {
   onShow$?: QRL<() => void>;
@@ -55,18 +54,7 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
     if (isOpen) {
       await showModal(panelRef.value);
 
-      // noscroll only lets touch gestures scroll elements it has marked.
-      // Mark the panel and any inner scroll container (e.g. a scrollable body
-      // with a sticky header/footer) so they remain touch-scrollable on iOS;
-      // otherwise the gesture resolves to the non-scrollable dialog and gets
-      // prevented. Re-scanned on each open to pick up the current content.
-      markScrollable(panelRef.value);
-      panelRef.value.querySelectorAll<HTMLElement>('*').forEach((el) => {
-        const { overflowX, overflowY } = getComputedStyle(el);
-        if (/(auto|scroll|overlay)/.test(`${overflowX} ${overflowY}`)) {
-          markScrollable(el);
-        }
-      });
+      markScrollableElements(panelRef.value);
 
       pageScroll.disablePageScroll();
       activateFocusTrap(focusTrap);

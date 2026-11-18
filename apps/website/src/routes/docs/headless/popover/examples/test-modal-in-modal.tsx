@@ -9,7 +9,7 @@ export default component$(() => {
         style={{ margin: 'auto', padding: '2rem', width: '20rem', height: '10rem' }}
       >
         <Modal.Title>Modal with a popover</Modal.Title>
-        <Popover.Root preventClickThrough>
+        <Popover.Root modal>
           <Popover.Trigger>Open popover</Popover.Trigger>
           <Popover.Panel style={{ padding: '1rem', border: '1px solid' }}>
             Popover content

@@ -9,10 +9,13 @@ export default component$(() => {
       <button class="popover-trigger" onClick$={() => cardClicks.value++}>
         A clickable card, clicked {cardClicks.value} times
       </button>
-      <Popover.Root preventClickThrough gutter={4}>
+      <Popover.Root modal gutter={4}>
         <Popover.Trigger class="popover-trigger">More</Popover.Trigger>
         <Popover.Panel class="popover-panel">
-          Click the card: I close, and the card is not clicked.
+          <div class="flex gap-2">
+            <button class="popover-trigger">Edit</button>
+            <button class="popover-trigger">Delete</button>
+          </div>
         </Popover.Panel>
       </Popover.Root>
     </div>

@@ -151,12 +151,12 @@ export const ShowcaseTransition = component$(() => {
   );
 });
 
-import ClickThrough from './examples/click-through';
-import ClickThroughRawCode from './examples/click-through.tsx?raw';
-export const ShowcaseClickThrough = component$(() => {
+import Modal from './examples/modal';
+import ModalRawCode from './examples/modal.tsx?raw';
+export const ShowcaseModal = component$(() => {
   return (
-    <Showcase rawCode={ClickThroughRawCode}>
-      <ClickThrough />
+    <Showcase rawCode={ModalRawCode}>
+      <Modal />
     </Showcase>
   );
 });

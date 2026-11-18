@@ -15,7 +15,8 @@ import { ComboboxContext, comboboxContextId } from './combobox-context';
 import { InternalComboboxProps } from './combobox-inline-comp';
 import { useCombinedRef } from '../../hooks/combined-refs';
 import { useBoundSignal } from '../../utils/bound-signal';
-import { preventClickThroughProps } from '../popover/prevent-click-through';
+import { outsidePressHandlers } from '../popover/modal-outside-press';
+import { useModalPageScrollLock } from '../../utils/page-scroll';
 import styles from './combobox.css?inline';
 
 export type TMultiple<M> = M extends true ? string[] : string;
@@ -48,8 +49,8 @@ export type HComboboxRootImplProps<M extends boolean = boolean> = Omit<
   /** A signal that controls the current open state (controlled). */
   'bind:open'?: Signal<boolean>;
 
-  /** While the listbox is open, a pointer press outside it only closes it and reaches nothing else. */
-  preventClickThrough?: boolean;
+  /** While the listbox is open, the rest of the page takes no pointer input and does not scroll. */
+  modal?: boolean;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   'bind:displayValue'?: Signal<TMultiple<M>>;
@@ -152,7 +153,7 @@ export const HComboboxRootImpl = component$<
     'bind:value': givenValueSig,
     'bind:open': givenOpenSig,
     'bind:displayValue': givenDisplayValueSig,
-    preventClickThrough,
+    modal,
     ...rest
   } = props;
 
@@ -275,6 +276,8 @@ export const HComboboxRootImpl = component$<
 
   useContextProvider(comboboxContextId, context);
 
+  useModalPageScrollLock(isListboxOpenSig, props, panelRef);
+
   useTask$(async function handleOpenChange({ track }) {
     track(() => isListboxOpenSig.value);
 
@@ -337,7 +340,8 @@ export const HComboboxRootImpl = component$<
       data-invalid={context.isInvalidSig.value ? '' : undefined}
       aria-invalid={context.isInvalidSig.value}
       data-combobox-root
-      {...preventClickThroughProps(preventClickThrough, `${localId}-panel`, true)}
+      data-modal-scope={props.modal ? 'manual' : undefined}
+      {...outsidePressHandlers(modal)}
       {...rest}
     >
       <Slot />

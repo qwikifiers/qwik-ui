@@ -11,7 +11,8 @@ import {
   useComputed$,
 } from '@builder.io/qwik';
 import { dropdownContextId, type DropdownContext } from './dropdown-context';
-import { preventClickThroughProps } from '../popover/prevent-click-through';
+import { outsidePressHandlers } from '../popover/modal-outside-press';
+import { useModalPageScrollLock } from '../../utils/page-scroll';
 
 export type TItemsMap = Map<
   number,
@@ -28,8 +29,8 @@ export type DropdownProps = PropsOf<'div'> & {
   /** A signal that controls the current open state (controlled). */
   'bind:open'?: Signal<boolean>;
 
-  /** While the menu is open, a pointer press outside it only closes it and reaches nothing else. */
-  preventClickThrough?: boolean;
+  /** While the menu is open, the rest of the page takes no pointer input and does not scroll. */
+  modal?: boolean;
 
   /**
    * QRL handler that runs when the dropdown opens or closes.
@@ -57,7 +58,7 @@ export const HDropdownImpl = component$<DropdownProps & InternalDropdownProps>(
       onOpenChange$,
       scrollOptions: givenScrollOptions,
       loop: givenLoop,
-      preventClickThrough,
+      modal,
       ...rest
     } = props;
 
@@ -105,6 +106,8 @@ export const HDropdownImpl = component$<DropdownProps & InternalDropdownProps>(
     };
 
     useContextProvider(dropdownContextId, context);
+
+    useModalPageScrollLock(isOpenSig, props, panelRef);
 
     useTask$(function reactiveUserOpen({ track }) {
       const bindOpenSig = props['bind:open'];
@@ -158,7 +161,8 @@ export const HDropdownImpl = component$<DropdownProps & InternalDropdownProps>(
         aria-expanded={context.isOpenSig.value}
         aria-haspopup="true"
         aria-activedescendant={activeDescendantSig.value}
-        {...preventClickThroughProps(preventClickThrough, `${localId}-panel`, true)}
+        data-modal-scope={props.modal ? 'manual' : undefined}
+        {...outsidePressHandlers(modal)}
         {...rest}
       >
         <Slot />

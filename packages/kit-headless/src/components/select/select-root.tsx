@@ -13,7 +13,8 @@ import {
 import SelectContextId, { type SelectContext } from './select-context';
 import { useSelect } from './use-select';
 import { useCombinedRef } from '../../hooks/combined-refs';
-import { preventClickThroughProps } from '../popover/prevent-click-through';
+import { outsidePressHandlers } from '../popover/modal-outside-press';
+import { useModalPageScrollLock } from '../../utils/page-scroll';
 
 export type TItemsMap = Map<
   number,
@@ -63,8 +64,8 @@ export type SelectProps<M extends boolean = boolean> = Omit<
   /** A signal that controls the current open state (controlled). */
   'bind:open'?: Signal<boolean>;
 
-  /** While the listbox is open, a pointer press outside it only closes it and reaches nothing else. */
-  preventClickThrough?: boolean;
+  /** While the listbox is open, the rest of the page takes no pointer input and does not scroll. */
+  modal?: boolean;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   'bind:displayValue'?: Signal<TMultiple<M>>;
@@ -131,7 +132,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
       required,
       disabled,
       invalid,
-      preventClickThrough,
+      modal,
       ...rest
     } = props;
 
@@ -212,6 +213,8 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
     };
 
     useContextProvider(SelectContextId, context);
+
+    useModalPageScrollLock(isListboxOpenSig, props, popoverRef);
 
     const { selectionManager$ } = useSelect();
 
@@ -313,7 +316,8 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
         data-invalid={context.isInvalidSig?.value ? '' : undefined}
         aria-invalid={context.isInvalidSig?.value}
         data-qui-select-root
-        {...preventClickThroughProps(preventClickThrough, `${localId}-panel`, true)}
+        data-modal-scope={props.modal ? 'manual' : undefined}
+        {...outsidePressHandlers(modal)}
         {...rest}
       >
         <Slot />

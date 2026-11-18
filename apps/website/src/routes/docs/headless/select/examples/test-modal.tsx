@@ -1,19 +1,21 @@
 import { component$, useSignal } from '@builder.io/qwik';
+import { useLocation } from '@builder.io/qwik-city';
 import { Select } from '@qwik-ui/headless';
 
 export default component$(() => {
-  const isOn = useSignal(true);
+  const location = useLocation();
+  const isModal = useSignal(location.url.searchParams.get('modal') !== 'off');
   const outsideClicks = useSignal(0);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       <label>
-        <input type="checkbox" bind:checked={isOn} /> preventClickThrough
+        <input type="checkbox" bind:checked={isModal} /> modal
       </label>
       <button data-testid="outside" onClick$={() => outsideClicks.value++}>
         outside clicks: {outsideClicks.value}
       </button>
-      <Select.Root preventClickThrough={isOn.value}>
+      <Select.Root modal={isModal.value}>
         <Select.Trigger>
           <Select.DisplayValue placeholder="Select an option" />
         </Select.Trigger>

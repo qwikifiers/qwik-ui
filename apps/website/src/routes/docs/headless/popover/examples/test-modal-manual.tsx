@@ -9,7 +9,7 @@ export default component$(() => {
       <button data-testid="outside" onClick$={() => outsideClicks.value++}>
         outside clicks: {outsideClicks.value}
       </button>
-      <Popover.Root preventClickThrough manual floating="right">
+      <Popover.Root modal manual floating="right">
         <Popover.Trigger>Open popover</Popover.Trigger>
         <Popover.Panel style={{ padding: '1rem', border: '1px solid' }}>
           Manual popover

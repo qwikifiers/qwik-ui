@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 import { createTestDriver } from './combobox.driver';
-import { recordPressEvents } from '../../utils/test-utils';
+import { centerOf, recordPressEvents } from '../../utils/test-utils';
 
 async function setup(page: Page, exampleName: string) {
   await page.goto(`/headless/combobox/${exampleName}`);
@@ -1019,44 +1019,74 @@ test.describe('Inline mode', () => {
   });
 });
 
-test.describe('Click through', () => {
+test.describe('Modal', () => {
   test('by default, the press that closes the listbox reaches the button it lands on', async ({
     page,
   }) => {
-    const { driver: d } = await setup(page, 'test-click-through');
-    await page.getByLabel('preventClickThrough').uncheck();
+    const { driver: d } = await setup(page, 'test-modal?modal=off');
     await d.getTrigger().click();
     await expect(d.getListbox()).toBeVisible();
     const outside = page.getByTestId('outside');
     const seenEvents = await recordPressEvents(outside);
+    const { x, y } = await centerOf(outside);
 
-    await outside.click();
+    await page.mouse.click(x, y);
 
     await expect(d.getListbox()).toBeHidden();
     await expect(outside).toHaveText('outside clicks: 1');
     expect(await seenEvents()).toContain('click');
   });
 
-  test('with preventClickThrough, the press that closes the listbox does not reach the button it lands on', async ({
+  test('with modal, the press that closes the listbox does not reach the button it lands on', async ({
     page,
   }) => {
-    const { driver: d } = await setup(page, 'test-click-through');
+    const { driver: d } = await setup(page, 'test-modal');
     await d.getTrigger().click();
     await expect(d.getListbox()).toBeVisible();
     const outside = page.getByTestId('outside');
     const seenEvents = await recordPressEvents(outside);
+    const { x, y } = await centerOf(outside);
 
-    await outside.click();
+    await page.mouse.click(x, y);
 
     await expect(d.getListbox()).toBeHidden();
     expect(await seenEvents()).toEqual([]);
     await expect(outside).toHaveText('outside clicks: 0');
   });
 
-  test('with preventClickThrough, a click on the trigger still closes the listbox', async ({
+  test('with modal, an outside button is not hovered while the listbox is open', async ({
     page,
   }) => {
-    const { driver: d } = await setup(page, 'test-click-through');
+    const { driver: d } = await setup(page, 'test-modal');
+    await d.getTrigger().click();
+    await expect(d.getListbox()).toBeVisible();
+    const outside = page.getByTestId('outside');
+    const { x, y } = await centerOf(outside);
+
+    await page.mouse.move(x, y);
+
+    expect(await outside.evaluate((button) => button.matches(':hover'))).toBe(false);
+  });
+
+  test('with modal, the page does not scroll while the listbox is open', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-modal');
+    await expect(page.locator('body')).toHaveCSS('overflow', 'visible');
+
+    await d.getTrigger().click();
+    await expect(d.getListbox()).toBeVisible();
+    await expect(page.locator('body')).toHaveCSS('overflow', 'hidden');
+
+    await d.getTrigger().click();
+    await expect(d.getListbox()).toBeHidden();
+    await expect(page.locator('body')).toHaveCSS('overflow', 'visible');
+  });
+
+  test('with modal, a click on the trigger still closes the listbox', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-modal');
     await d.getTrigger().click();
     await expect(d.getListbox()).toBeVisible();
 
@@ -1065,10 +1095,8 @@ test.describe('Click through', () => {
     await expect(d.getListbox()).toBeHidden();
   });
 
-  test('with preventClickThrough, a click on an option still selects it', async ({
-    page,
-  }) => {
-    const { driver: d } = await setup(page, 'test-click-through');
+  test('with modal, a click on an option still selects it', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-modal');
     await d.getTrigger().click();
     await expect(d.getListbox()).toBeVisible();
 
@@ -1076,5 +1104,24 @@ test.describe('Click through', () => {
 
     await expect(d.getListbox()).toBeHidden();
     await expect(d.getInput()).toHaveValue('Cherry');
+  });
+
+  test.describe('touch', () => {
+    test.use({ hasTouch: true });
+
+    test('with modal, a tap outside only closes the listbox', async ({ page }) => {
+      const { driver: d } = await setup(page, 'test-modal');
+      await d.getTrigger().tap();
+      await expect(d.getListbox()).toBeVisible();
+      const outside = page.getByTestId('outside');
+      const seenEvents = await recordPressEvents(outside);
+      const { x, y } = await centerOf(outside);
+
+      await page.touchscreen.tap(x, y);
+
+      await expect(d.getListbox()).toBeHidden();
+      expect(await seenEvents()).toEqual([]);
+      await expect(outside).toHaveText('outside clicks: 0');
+    });
   });
 });
