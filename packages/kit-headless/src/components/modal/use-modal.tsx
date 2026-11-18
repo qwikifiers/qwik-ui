@@ -15,7 +15,8 @@ export function useModal() {
    * @returns whether the Modal was closed. It is not when it was reopened in the meantime.
    */
   const supportClosingAnimation = $(async (modal: HTMLDialogElement) => {
-    modal.dataset.closing = '';
+    if (modal.dataset.closing === undefined) return false;
+
     modal.classList.add('modal-closing');
 
     await _waitUntilRendered(modal);

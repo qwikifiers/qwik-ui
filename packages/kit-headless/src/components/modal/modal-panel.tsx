@@ -60,6 +60,7 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
       activateFocusTrap(focusTrap);
       await context.onShow$?.();
     } else if (panelRef.value.open) {
+      panelRef.value.dataset.closing = '';
       closeModal(panelRef.value).then(async (isClosed) => {
         if (isClosed) await context.onClose$?.();
       });
