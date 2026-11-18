@@ -43,6 +43,17 @@ Install Qwik UI with your choice of package manager below:
 
 <InstallSnippet packages={packages} />
 
+## Overriding the default styles
+
+A few components, such as Modal, Popover and Carousel, ship a small CSS reset in a `qwik-ui` layer. For your styles to win over it, declare that layer before your own layers, at the top of your global CSS. With Tailwind:
+
+```css
+@layer base, qwik-ui, popover-polyfill, theme, components, utilities;
+@import 'tailwindcss';
+```
+
+> Without this line the `qwik-ui` layer is declared when a component's styles load, after Tailwind's layers, and it outranks Tailwind's utilities.
+
     ## Meta-framework guides
 
     <div class="flex flex-col gap-4 md:flex-row mx-6 lg:mx-8">
