@@ -13,6 +13,7 @@ import {
 import { dropdownContextId, type DropdownContext } from './dropdown-context';
 import { outsidePressHandlers } from '../popover/modal-outside-press';
 import { useModalPageScrollLock } from '../../utils/page-scroll';
+import { useModalAriaHideOutside } from '../../utils/aria-hide-outside';
 
 export type TItemsMap = Map<
   number,
@@ -108,6 +109,7 @@ export const HDropdownImpl = component$<DropdownProps & InternalDropdownProps>(
     useContextProvider(dropdownContextId, context);
 
     useModalPageScrollLock(isOpenSig, props, panelRef);
+    useModalAriaHideOutside(isOpenSig, props, rootRef);
 
     useTask$(function reactiveUserOpen({ track }) {
       const bindOpenSig = props['bind:open'];

@@ -522,7 +522,7 @@ test.describe('Modal', () => {
   }) => {
     await setup(page, 'test-modal');
     await openPopover(page);
-    const { x, y } = await centerOf(page.getByRole('link', { name: 'Outside link' }));
+    const { x, y } = await centerOf(page.getByText('Outside link'));
 
     await page.mouse.click(x, y);
 
@@ -541,6 +541,28 @@ test.describe('Modal', () => {
     await page.mouse.move(x, y);
 
     expect(await outside.evaluate((button) => button.matches(':hover'))).toBe(false);
+  });
+
+  test('by default, an outside button stays exposed to screen readers while the popover is open', async ({
+    page,
+  }) => {
+    await setup(page, 'test-modal?modal=off');
+    await openPopover(page);
+
+    await expect(page.getByRole('button', { name: /outside clicks/ })).toHaveCount(1);
+  });
+
+  test('with modal, an outside button is hidden from screen readers while the popover is open', async ({
+    page,
+  }) => {
+    await setup(page, 'test-modal');
+    await openPopover(page);
+    await expect(page.getByRole('button', { name: /outside clicks/ })).toHaveCount(0);
+
+    await page.keyboard.press('Escape');
+    await expect(page.locator('[popover]')).toBeHidden();
+
+    await expect(page.getByRole('button', { name: /outside clicks/ })).toHaveCount(1);
   });
 
   test('with modal, the page does not scroll while the popover is open', async ({
