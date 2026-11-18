@@ -12,6 +12,10 @@
 
 /* Strips the user agent styles from the popover when in floating mode */
 @layer qwik-ui {
+  [data-qui-popover-panel]:not(:popover-open):not(.popover-closing) {
+    display: none !important;
+  }
+
   [data-floating] {
     margin: unset;
     padding: unset;

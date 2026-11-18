@@ -1222,3 +1222,31 @@ test.describe('Modal', () => {
     });
   });
 });
+
+test.describe('Styles', () => {
+  test('a closed listbox laid out with flex stays hidden', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-flex-panel');
+
+    await expect(d.getTrigger()).toBeVisible();
+    await expect(page.locator('[popover]')).toBeHidden();
+  });
+
+  test('a listbox laid out with flex shows when open', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-flex-panel');
+
+    await d.getTrigger().click();
+
+    await expect(d.getListbox()).toBeVisible();
+    await expect(d.getListbox()).toHaveCSS('display', 'flex');
+  });
+
+  test('a listbox laid out with flex is hidden again once closed', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-flex-panel');
+    await d.getTrigger().click();
+    await expect(d.getListbox()).toBeVisible();
+
+    await d.getTrigger().click();
+
+    await expect(page.locator('[popover]')).toBeHidden();
+  });
+});
