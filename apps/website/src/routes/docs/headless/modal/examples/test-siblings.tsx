@@ -11,7 +11,6 @@ export default component$(() => {
       <button onClick$={() => (isFirstOpen.value = true)} class="modal-trigger">
         Open Modal
       </button>
-      <div style={{ height: '200vh', paddingTop: '420px' }}>The page scrolled</div>
       <Modal.Root bind:show={isFirstOpen}>
         <Modal.Panel class="modal-panel">
           <Modal.Title>First</Modal.Title>

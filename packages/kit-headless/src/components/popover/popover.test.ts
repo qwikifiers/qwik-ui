@@ -95,8 +95,8 @@ test.describe('Mouse Behavior', () => {
     const [firstTrigger, secondTrigger] = await d.getAllTriggers();
     const [firstPopover, secondPopover] = await d.getAllPopovers();
 
-    firstTrigger.click();
-    secondTrigger.click();
+    await firstTrigger.click();
+    await secondTrigger.click();
 
     const topPopover = page.locator(
       `[popover]:above(:text("${await firstPopover.innerText()}"))`,
@@ -114,8 +114,8 @@ test.describe('Mouse Behavior', () => {
     const [firstTrigger, secondTrigger] = await d.getAllTriggers();
     const [firstPopover, secondPopover] = await d.getAllPopovers();
 
-    firstTrigger.click();
-    secondTrigger.click();
+    await firstTrigger.click();
+    await secondTrigger.click();
 
     const topPopover = page.locator(
       `[popover]:above(:text("${await secondPopover.innerText()}"))`,
@@ -721,6 +721,43 @@ test.describe('Modal', () => {
       expect(await seenEvents()).toEqual([]);
       await expect(outside).toHaveText('outside clicks: 0');
     });
+  });
+});
+
+test.describe('Styles', () => {
+  test('a closed panel laid out with flex stays hidden', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-flex-panel');
+
+    await expect(d.getTrigger()).toBeVisible();
+    await expect(d.getPopover()).toBeHidden();
+  });
+
+  test('a closed panel that does not float and is laid out with flex stays hidden', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-flex-panel-static');
+
+    await expect(d.getTrigger()).toBeVisible();
+    await expect(d.getPopover()).toBeHidden();
+  });
+
+  test('a panel laid out with flex shows when open', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-flex-panel');
+
+    await d.getTrigger().click();
+
+    await expect(d.getPopover()).toBeVisible();
+    await expect(d.getPopover()).toHaveCSS('display', 'flex');
+  });
+
+  test('a panel laid out with flex is hidden again once closed', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-flex-panel');
+    await d.getTrigger().click();
+    await expect(d.getPopover()).toBeVisible();
+
+    await page.keyboard.press('Escape');
+
+    await expect(d.getPopover()).toBeHidden();
   });
 });
 

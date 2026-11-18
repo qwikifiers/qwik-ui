@@ -2,6 +2,7 @@ import { qwikVite } from '@builder.io/qwik/optimizer';
 import { qwikCity } from '@builder.io/qwik-city/vite';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   root: 'apps/component-tests',
@@ -18,7 +19,14 @@ export default defineConfig({
       tsconfigFileNames: ['tsconfig.app.json'],
     }),
     tsconfigPaths({ root: '../../' }),
+    tailwindcss(),
   ],
+  optimizeDeps: {
+    entries: [
+      '../../packages/kit-headless/src/index.ts',
+      '../website/src/routes/docs/headless/**/examples/*.tsx',
+    ],
+  },
   server: {
     fs: {
       // Allow serving files from the project root

@@ -80,7 +80,7 @@ test.describe('Placement and Positioning', () => {
     const { driver: d } = await setup(page, 'placement');
 
     const placement = 'top';
-    d.selectOption(placement);
+    await d.selectOption(placement);
 
     const tooltip = d.getTooltip();
     const trigger = d.getTrigger();
@@ -89,7 +89,7 @@ test.describe('Placement and Positioning', () => {
 
     await expect(tooltip).toBeVisible();
 
-    d.validateTooltipPosition(placement);
+    await d.validateTooltipPosition(placement);
   });
 
   test(`GIVEN a tooltip with placement set to right
@@ -98,7 +98,7 @@ test.describe('Placement and Positioning', () => {
     const { driver: d } = await setup(page, 'placement');
 
     const placement = 'right';
-    d.selectOption(placement);
+    await d.selectOption(placement);
 
     const tooltip = d.getTooltip();
     const trigger = d.getTrigger();
@@ -107,7 +107,7 @@ test.describe('Placement and Positioning', () => {
 
     await expect(tooltip).toBeVisible();
 
-    d.validateTooltipPosition(placement);
+    await d.validateTooltipPosition(placement);
   });
 
   test(`GIVEN a tooltip with placement set to bottom
@@ -116,7 +116,7 @@ test.describe('Placement and Positioning', () => {
     const { driver: d } = await setup(page, 'placement');
 
     const placement = 'bottom';
-    d.selectOption(placement);
+    await d.selectOption(placement);
 
     const tooltip = d.getTooltip();
     const trigger = d.getTrigger();
@@ -125,7 +125,7 @@ test.describe('Placement and Positioning', () => {
 
     await expect(tooltip).toBeVisible();
 
-    d.validateTooltipPosition(placement);
+    await d.validateTooltipPosition(placement);
   });
 
   test(`GIVEN a tooltip with placement set to left
@@ -134,7 +134,7 @@ test.describe('Placement and Positioning', () => {
     const { driver: d } = await setup(page, 'placement');
 
     const placement = 'left';
-    d.selectOption(placement);
+    await d.selectOption(placement);
 
     const tooltip = d.getTooltip();
     const trigger = d.getTrigger();
@@ -143,7 +143,7 @@ test.describe('Placement and Positioning', () => {
 
     await expect(tooltip).toBeVisible();
 
-    d.validateTooltipPosition(placement);
+    await d.validateTooltipPosition(placement);
   });
 
   test(`GIVEN a tooltip with a gutter configured

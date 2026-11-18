@@ -3,6 +3,7 @@
 @import 'tw-animate-css';
 
 @source "../../../packages/kit-styled";
+@source "../../website/src/routes/docs";
 
 @custom-variant dark (&:is(.dark *));
 

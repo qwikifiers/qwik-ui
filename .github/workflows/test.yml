@@ -33,6 +33,31 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           chromatic_token: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 
+  headless-browser-tests:
+    runs-on: ubuntu-24.04
+    name: Headless browser tests
+
+    steps:
+      - uses: actions/checkout@v5
+      - name: Setup
+        uses: ./.github/actions/setup
+        with:
+          node_version: 22
+
+      - name: Install Chromium for Playwright
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Run the headless browser tests
+        run: pnpm test.pw.headless.ci --skip-nx-cache
+
+      - name: Upload the Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: dist/.playwright/packages/kit-headless
+          retention-days: 7
+
   continuous-release:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest

@@ -12,7 +12,7 @@ async function setup(page: Page, exampleName: string) {
   };
 }
 
-test.describe.only('Tabs', () => {
+test.describe('Tabs', () => {
   test('INIT', async ({ page }) => {
     const { driver: d } = await setup(page, 'first');
     await expect(d.getTabsRoot()).toBeVisible();
@@ -213,6 +213,7 @@ test.describe('Orientation: Horizontal', () => {
 
       await d.getTab(0).click();
       await d.getTab(0).press('ArrowRight');
+      await expect(d.getTab(1)).toBeFocused();
       await expect(d.getTabPanel()).toHaveId(/_0/);
       await d.getTab(1).press('Enter');
       await expect(d.getTabPanel()).toHaveId(/_1/);

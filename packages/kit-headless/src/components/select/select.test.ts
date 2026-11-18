@@ -304,8 +304,9 @@ test.describe('Keyboard Behavior', () => {
 
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
       await d.getHighlightedItem().press('ArrowDown');
+      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
       await d.getHighlightedItem().press('ArrowDown');
-      1;
+      await expect(d.getItemAt(2)).toHaveAttribute('data-highlighted');
 
       await d.getHighlightedItem().press('ArrowUp');
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
@@ -575,6 +576,7 @@ test.describe('Keyboard Behavior', () => {
         // initially last option is highlighted
         await d.openListbox('Enter');
         await d.getItemAt(0).press('End');
+        await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
 
         await d.getItemAt('last').press('ArrowDown');
         await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
@@ -676,6 +678,7 @@ test.describe('Keyboard Behavior', () => {
         // initially last option is highlighted
         await d.openListbox('Enter');
         await d.getHighlightedItem().press('End');
+        await expect(d.getItemAt('last')).toHaveAttribute('data-highlighted');
         await d.getHighlightedItem().press('Enter');
 
         await expect(d.getListbox()).toBeHidden();
@@ -907,6 +910,7 @@ test.describe('Props', () => {
 
       await expect(page.locator('p')).toContainText('The selected value is: null');
       await d.getHighlightedItem().press('ArrowDown');
+      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
       await d.getHighlightedItem().press('Enter');
 
       await expect(page.locator('p')).toContainText('The selected value is: 1');
@@ -1220,5 +1224,33 @@ test.describe('Modal', () => {
       expect(await seenEvents()).toEqual([]);
       await expect(outside).toHaveText('outside clicks: 0');
     });
+  });
+});
+
+test.describe('Styles', () => {
+  test('a closed listbox laid out with flex stays hidden', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-flex-panel');
+
+    await expect(d.getTrigger()).toBeVisible();
+    await expect(page.locator('[popover]')).toBeHidden();
+  });
+
+  test('a listbox laid out with flex shows when open', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-flex-panel');
+
+    await d.getTrigger().click();
+
+    await expect(d.getListbox()).toBeVisible();
+    await expect(d.getListbox()).toHaveCSS('display', 'flex');
+  });
+
+  test('a listbox laid out with flex is hidden again once closed', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-flex-panel');
+    await d.getTrigger().click();
+    await expect(d.getListbox()).toBeVisible();
+
+    await d.getTrigger().click();
+
+    await expect(page.locator('[popover]')).toBeHidden();
   });
 });

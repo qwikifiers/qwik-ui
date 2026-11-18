@@ -285,7 +285,9 @@ test.describe('Keyboard Behavior', () => {
 
       await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
       await d.getHighlightedItem().press('ArrowDown');
+      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
       await d.getHighlightedItem().press('ArrowDown');
+      await expect(d.getItemAt(3)).toHaveAttribute('data-highlighted');
 
       await d.getHighlightedItem().press('ArrowUp');
       await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
@@ -362,9 +364,12 @@ test.describe('Keyboard Behavior', () => {
       const { driver: d } = await setup(page, 'hero');
 
       await d.openDropdown('Space');
+      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
 
       await d.getHighlightedItem().press('ArrowDown');
+      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
       await d.getHighlightedItem().press('ArrowDown');
+      await expect(d.getItemAt(3)).toHaveAttribute('data-highlighted');
       await d.getHighlightedItem().press('Enter');
 
       await expect(d.getItemAt(3)).toHaveAttribute('aria-checked', 'true');
@@ -376,9 +381,12 @@ test.describe('Keyboard Behavior', () => {
       const { driver: d } = await setup(page, 'hero');
 
       await d.openDropdown('Space');
+      await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
 
       await d.getHighlightedItem().press('ArrowDown');
+      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
       await d.getHighlightedItem().press('ArrowDown');
+      await expect(d.getItemAt(3)).toHaveAttribute('data-highlighted');
       await d.getHighlightedItem().press('Space');
 
       await expect(d.getItemAt(3)).toHaveAttribute('aria-checked', 'true');
@@ -393,7 +401,9 @@ test.describe('Keyboard Behavior', () => {
 
       await d.getItemAt(5).click();
       await d.getHighlightedItem().press('End');
+      await expect(d.getItemAt(6)).toHaveAttribute('data-highlighted');
       await d.getHighlightedItem().press('ArrowUp');
+      await expect(d.getItemAt(5)).toHaveAttribute('data-highlighted');
       await d.getHighlightedItem().press('Enter');
 
       await expect(d.getItemAt(5)).toHaveAttribute('aria-checked', 'true');
@@ -408,7 +418,9 @@ test.describe('Keyboard Behavior', () => {
 
       await d.getItemAt(5).click();
       await d.getHighlightedItem().press('End');
+      await expect(d.getItemAt(6)).toHaveAttribute('data-highlighted');
       await d.getHighlightedItem().press('ArrowUp');
+      await expect(d.getItemAt(5)).toHaveAttribute('data-highlighted');
       await d.getHighlightedItem().press('Space');
 
       await expect(d.getItemAt(5)).toHaveAttribute('aria-checked', 'true');
@@ -423,6 +435,7 @@ test.describe('Keyboard Behavior', () => {
 
       await d.getItemAt(5).click();
       await d.getHighlightedItem().press('End');
+      await expect(d.getItemAt(6)).toHaveAttribute('data-highlighted');
       await d.getHighlightedItem().press('Enter');
 
       await expect(d.getItemAt(5)).toHaveAttribute('aria-checked', 'false');
@@ -438,6 +451,7 @@ test.describe('Keyboard Behavior', () => {
 
       await d.getItemAt(5).click();
       await d.getHighlightedItem().press('End');
+      await expect(d.getItemAt(6)).toHaveAttribute('data-highlighted');
       await d.getHighlightedItem().press('Space');
 
       await expect(d.getItemAt(5)).toHaveAttribute('aria-checked', 'false');
@@ -463,7 +477,9 @@ test.describe('Disabled', () => {
     const { driver: d } = await setup(page, 'hero');
 
     await d.openDropdown('Enter');
+    await expect(d.getItemAt(0)).toHaveAttribute('data-highlighted');
     await page.keyboard.press('ArrowDown');
+    await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
     await page.keyboard.press('ArrowDown');
 
     await expect(d.getItemAt(2)).toBeDisabled();

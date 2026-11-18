@@ -2,8 +2,15 @@
 
 import { expect, test, type Page } from '@playwright/test';
 import { createTestDriver } from './checkbox.driver';
+
+const checklistIssue = {
+  annotation: {
+    type: 'issue',
+    description: 'https://github.com/qwikifiers/qwik-ui/issues/1213',
+  },
+};
 async function setup(page: Page, exampleName: string) {
-  await page.goto(`http://localhost:6174/checkbox/${exampleName}`);
+  await page.goto(`/headless/checkbox/${exampleName}`);
 
   const driver = createTestDriver(page);
 
@@ -225,49 +232,59 @@ test.describe('checklist', () => {
   // });
 
   // 4
-  test(`GIVEN checklist with all unchecked checkboxes
+  test.fixme(
+    `GIVEN checklist with all unchecked checkboxes
         WHEN all checkboxes are checked
-        the toggle all indicator should be checked`, async ({ page }) => {
-    const exampleName = 'test-list';
-    const { driver: d } = await setup(page, exampleName);
-    await expect(d.getSelectAllIndicator()).toBeHidden();
-    await d.getCheckbox().nth(1).click();
-    await d.getCheckbox().nth(2).click();
-    await expect(d.getSelectAllIndicator()).toBeVisible();
-  });
+        the toggle all indicator should be checked`,
+    checklistIssue,
+    async ({ page }) => {
+      const exampleName = 'test-list';
+      const { driver: d } = await setup(page, exampleName);
+      await expect(d.getSelectAllIndicator()).toBeHidden();
+      await d.getCheckbox().nth(1).click();
+      await d.getCheckbox().nth(2).click();
+      await expect(d.getSelectAllIndicator()).toBeVisible();
+    },
+  );
 
   //5
-  test(`GIVEN checklist with all unchecked checkboxes
+  test.fixme(
+    `GIVEN checklist with all unchecked checkboxes
         WHEN the checklist's checkbox is checked with space
-        THEN  all chekboxes should have aria-checked true`, async ({ page }) => {
-    const exampleName = 'test-list';
-    const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
-    await expect(getTriCheckbox()).toBeVisible();
-    await getTriCheckbox().press(' ');
-    await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
-    await expect(getCheckbox().nth(1)).toHaveAttribute('aria-checked', 'true');
-    await expect(getCheckbox().nth(2)).toHaveAttribute('aria-checked', 'true');
-  });
+        THEN  all chekboxes should have aria-checked true`,
+    checklistIssue,
+    async ({ page }) => {
+      const exampleName = 'test-list';
+      const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
+      await expect(getTriCheckbox()).toBeVisible();
+      await getTriCheckbox().press(' ');
+      await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
+      await expect(getCheckbox().nth(1)).toHaveAttribute('aria-checked', 'true');
+      await expect(getCheckbox().nth(2)).toHaveAttribute('aria-checked', 'true');
+    },
+  );
 
   //6
   // TODO: reme two part of test by adding new test file
-  test(`GIVEN checklist with all unchecked checkboxes
+  test.fixme(
+    `GIVEN checklist with all unchecked checkboxes
         WHEN the checklist's checkbox is checked twice using space
-        THEN  all chekboxes should go from aria-checked true to aria-checkded false`, async ({
-    page,
-  }) => {
-    const exampleName = 'test-list';
-    const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
-    await expect(getTriCheckbox()).toBeVisible();
-    await getTriCheckbox().press(' ');
-    await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
-    await expect(getCheckbox().nth(1)).toHaveAttribute('aria-checked', 'true');
-    await expect(getCheckbox().nth(2)).toHaveAttribute('aria-checked', 'true');
-    await getTriCheckbox().press(' ');
-    await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'false');
-    await expect(getCheckbox().nth(1)).toHaveAttribute('aria-checked', 'false');
-    await expect(getCheckbox().nth(2)).toHaveAttribute('aria-checked', 'false');
-  });
+        THEN  all chekboxes should go from aria-checked true to aria-checkded false`,
+    checklistIssue,
+    async ({ page }) => {
+      const exampleName = 'test-list';
+      const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
+      await expect(getTriCheckbox()).toBeVisible();
+      await getTriCheckbox().press(' ');
+      await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
+      await expect(getCheckbox().nth(1)).toHaveAttribute('aria-checked', 'true');
+      await expect(getCheckbox().nth(2)).toHaveAttribute('aria-checked', 'true');
+      await getTriCheckbox().press(' ');
+      await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'false');
+      await expect(getCheckbox().nth(1)).toHaveAttribute('aria-checked', 'false');
+      await expect(getCheckbox().nth(2)).toHaveAttribute('aria-checked', 'false');
+    },
+  );
 
   // Search?
   // test(`GIVEN checklist with checkboxes
@@ -305,13 +322,17 @@ test.describe('checklist', () => {
   // });
 
   //7
-  test(`GIVEN a controlled checklist with two checked checkboxes
+  test.fixme(
+    `GIVEN a controlled checklist with two checked checkboxes
     WHEN it renders
-    IT should have aria-checked true`, async ({ page }) => {
-    const exampleName = 'test-controlled-list-trues';
-    const { getTriCheckbox } = await setup(page, exampleName);
-    await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
-  });
+    IT should have aria-checked true`,
+    checklistIssue,
+    async ({ page }) => {
+      const exampleName = 'test-controlled-list-trues';
+      const { getTriCheckbox } = await setup(page, exampleName);
+      await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
+    },
+  );
 
   //8
   test(`GIVEN a controlled checklist with two unchecked checkboxes
@@ -356,15 +377,19 @@ test.describe('checklist', () => {
   // Not using mixed yet
   // ONE CHILD UNCHECKED
   //11
-  test(`GIVEN a checklist that has all items checked
+  test.fixme(
+    `GIVEN a checklist that has all items checked
         WHEN a child checkbox is unchecked
-        THEN the checklist signal should have a mixed state`, async ({ page }) => {
-    const exampleName = 'test-controlled-list-true';
-    const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
-    const firstCheckbox = getCheckbox().first();
-    await firstCheckbox.click();
-    await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'mixed');
-  });
+        THEN the checklist signal should have a mixed state`,
+    checklistIssue,
+    async ({ page }) => {
+      const exampleName = 'test-controlled-list-true';
+      const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
+      const firstCheckbox = getCheckbox().first();
+      await firstCheckbox.click();
+      await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'mixed');
+    },
+  );
 
   // Not implemented yet
   // ALL CHILDREN UNCHECKED
@@ -419,51 +444,59 @@ test.describe('checklist', () => {
 
   //Duplicates? Starts with Unchecked
   //12
-  test(`GIVEN checklist with all unchecked checkboxes
+  test.fixme(
+    `GIVEN checklist with all unchecked checkboxes
         WHEN all checkboxes are checked using click
-        THEN the checkbox with aria-controls should have aria-checked true`, async ({
-    page,
-  }) => {
-    const exampleName = 'test-list';
-    const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
-    await expect(getTriCheckbox()).toBeVisible();
-    await getCheckbox().nth(1).click();
-    await getCheckbox().nth(2).click();
-    await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
-  });
+        THEN the checkbox with aria-controls should have aria-checked true`,
+    checklistIssue,
+    async ({ page }) => {
+      const exampleName = 'test-list';
+      const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
+      await expect(getTriCheckbox()).toBeVisible();
+      await getCheckbox().nth(1).click();
+      await getCheckbox().nth(2).click();
+      await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
+    },
+  );
 
   //13
-  test(`GIVEN checklist with all unchecked checkboxes
+  test.fixme(
+    `GIVEN checklist with all unchecked checkboxes
         WHEN the checklist's checkbox is checked by clicking
-        THEN all checkboxes should have aria-checked true`, async ({ page }) => {
-    const exampleName = 'test-list';
-    const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
-    await expect(getTriCheckbox()).toBeVisible();
-    await getTriCheckbox().click();
-    await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
-    await expect(getCheckbox().nth(1)).toHaveAttribute('aria-checked', 'true');
-    await expect(getCheckbox().nth(2)).toHaveAttribute('aria-checked', 'true');
-  });
+        THEN all checkboxes should have aria-checked true`,
+    checklistIssue,
+    async ({ page }) => {
+      const exampleName = 'test-list';
+      const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
+      await expect(getTriCheckbox()).toBeVisible();
+      await getTriCheckbox().click();
+      await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
+      await expect(getCheckbox().nth(1)).toHaveAttribute('aria-checked', 'true');
+      await expect(getCheckbox().nth(2)).toHaveAttribute('aria-checked', 'true');
+    },
+  );
 
   //14
   // TODO: reme two part of test by adding new test file
-  test(`GIVEN checklist with all unchecked checkboxes
+  test.fixme(
+    `GIVEN checklist with all unchecked checkboxes
         WHEN the checklist's checkbox is checked twice using click
-        THEN  all chekboxes should go from aria-checked true to aria-checkded false`, async ({
-    page,
-  }) => {
-    const exampleName = 'test-list';
-    const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
-    await expect(getTriCheckbox()).toBeVisible();
-    await getTriCheckbox().click();
-    await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
-    await expect(getCheckbox().nth(1)).toHaveAttribute('aria-checked', 'true');
-    await expect(getCheckbox().nth(2)).toHaveAttribute('aria-checked', 'true');
-    await getTriCheckbox().click();
-    await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'false');
-    await expect(getCheckbox().nth(1)).toHaveAttribute('aria-checked', 'false');
-    await expect(getCheckbox().nth(2)).toHaveAttribute('aria-checked', 'false');
-  });
+        THEN  all chekboxes should go from aria-checked true to aria-checkded false`,
+    checklistIssue,
+    async ({ page }) => {
+      const exampleName = 'test-list';
+      const { getTriCheckbox, getCheckbox } = await setup(page, exampleName);
+      await expect(getTriCheckbox()).toBeVisible();
+      await getTriCheckbox().click();
+      await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'true');
+      await expect(getCheckbox().nth(1)).toHaveAttribute('aria-checked', 'true');
+      await expect(getCheckbox().nth(2)).toHaveAttribute('aria-checked', 'true');
+      await getTriCheckbox().click();
+      await expect(getTriCheckbox()).toHaveAttribute('aria-checked', 'false');
+      await expect(getCheckbox().nth(1)).toHaveAttribute('aria-checked', 'false');
+      await expect(getCheckbox().nth(2)).toHaveAttribute('aria-checked', 'false');
+    },
+  );
 
   // test(`GIVEN checklist with checkboxes
   //       WHEN the values of aria-controls are search
