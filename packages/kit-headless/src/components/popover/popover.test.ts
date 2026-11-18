@@ -232,6 +232,17 @@ test.describe('Mouse Behavior', () => {
     expect(yDiff).toBeLessThan(0);
   });
 
+  test('a trigger inside a form opens the popover without submitting the form', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-form');
+
+    await d.getTrigger().click();
+
+    await expect(d.getPopover()).toBeVisible();
+    await expect(page.getByTestId('submits')).toHaveText('form submits: 0');
+  });
+
   test.describe('Programmatic functionality', () => {
     test(`GIVEN a programmatic popover
         WHEN the showPopover function is called
