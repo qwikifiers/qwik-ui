@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.1
+
+### Patch Changes
+
+- 🐞🩹 a Modal closed and reopened before its closing code has loaded now stays open. (by [@maiieul](https://github.com/maiieul) in [#1225](https://github.com/qwikifiers/qwik-ui/pull/1225))
+
 ## 0.8.0
 
 ### Minor Changes
