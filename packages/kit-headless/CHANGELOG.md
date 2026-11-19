@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.2
+
+### Patch Changes
+
+- 🐞🩹 typing a letter on a Select no longer selects or highlights a disabled option. (by [@maiieul](https://github.com/maiieul) in [#1228](https://github.com/qwikifiers/qwik-ui/pull/1228))
+
 ## 0.8.1
 
 ### Patch Changes
