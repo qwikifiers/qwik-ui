@@ -108,7 +108,7 @@ export function useTypeahead() {
 
   const firstCharItemSig = useComputed$(() => {
     return Array.from(context.itemsMapSig.value.values()).map((item) =>
-      item.displayValue?.slice(0, 1).toLowerCase(),
+      item.disabled ? undefined : item.displayValue?.slice(0, 1).toLowerCase(),
     );
   });
 
@@ -190,6 +190,8 @@ export function useTypeahead() {
       const inputStrLower = inputStrSig.value.toLowerCase();
 
       for (const [index, item] of context.itemsMapSig.value) {
+        if (item.disabled) continue;
+
         const optStr = item.displayValue?.toLowerCase().substring(0, inputSize);
         if (optStr === inputStrLower) {
           firstPossibleOpt = index;

@@ -788,6 +788,52 @@ test.describe('Disabled', () => {
     await d.getHighlightedItem().press('ArrowUp');
     await expect(secondOption).toHaveAttribute('data-highlighted');
   });
+
+  test('typing a letter on a closed select skips a disabled option that starts with it', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'disabled');
+
+    await d.getTrigger().press('j');
+
+    await expect(d.getTrigger()).toHaveText('Joan');
+  });
+
+  test('typing a letter that only a disabled option starts with keeps the selected option', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'disabled');
+    await d.getTrigger().press('r');
+    await expect(d.getTrigger()).toHaveText('Ryan');
+
+    await d.getTrigger().press('t');
+    await d.openListbox('ArrowDown');
+
+    await expect(d.getTrigger()).toHaveText('Ryan');
+  });
+
+  test('typing several letters skips a disabled option that starts with them', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-typeahead-disabled');
+    await d.getTrigger().press('j');
+    await expect(d.getTrigger()).toHaveText('Joan');
+
+    await d.getTrigger().press('i');
+
+    await expect(d.getTrigger()).toHaveText('Jimmy');
+  });
+
+  test('typing a letter on an open select skips a disabled option that starts with it', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'disabled');
+    await d.openListbox('ArrowDown');
+
+    await d.getHighlightedItem().press('j');
+
+    await expect(d.getItemAt(4)).toHaveAttribute('data-highlighted');
+  });
 });
 
 test.describe('Props', () => {
