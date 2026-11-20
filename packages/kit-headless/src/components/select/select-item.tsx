@@ -180,6 +180,11 @@ export const HSelectItem = component$<SelectItemProps>((props) => {
     if (keys.includes(e.key)) {
       e.preventDefault();
     }
+
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      e.stopPropagation();
+    }
   });
 
   const handleKeyDown$ = $(async (e: KeyboardEvent) => {
