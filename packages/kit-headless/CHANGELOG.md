@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.9.0
+
+### Minor Changes
+
+- 🐞🩹 the Select trigger now has the `combobox` role and tells screen readers when the Select is required or invalid. Tests that find the trigger by the `button` role need to look for `combobox`. (by [@maiieul](https://github.com/maiieul) in [#1244](https://github.com/qwikifiers/qwik-ui/pull/1244))
+
+### Patch Changes
+
+- 🐞🩹 a Select's `bind:value` now matches options exactly, keeps an empty option value and updates when it starts empty. `onChange$` runs once per pick, not for values the parent sets, and the pick shows without waiting for it. (by [@maiieul](https://github.com/maiieul) in [#1241](https://github.com/qwikifiers/qwik-ui/pull/1241))
+
+- 🐞🩹 Escape in an open Select inside a Modal now closes only the listbox. (by [@maiieul](https://github.com/maiieul) in [#1243](https://github.com/qwikifiers/qwik-ui/pull/1243))
+
 ## 0.8.2
 
 ### Patch Changes

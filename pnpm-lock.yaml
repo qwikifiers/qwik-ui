@@ -347,7 +347,7 @@ importers:
         version: 1.16.1(vite@7.1.7(@types/node@22.15.29)(jiti@2.6.0)(lightningcss@1.29.2)(sass@1.93.2)(yaml@2.8.1))
     devDependencies:
       '@qwik-ui/headless':
-        specifier: ^0.8.0
+        specifier: ^0.9.0
         version: link:../kit-headless
       '@qwik-ui/utils':
         specifier: 0.3.3
