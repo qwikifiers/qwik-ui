@@ -8,7 +8,7 @@ export function createTestDriver<T extends DriverLocator>(rootLocator: T) {
   };
 
   const getTrigger = () => {
-    return getRoot().getByRole('button');
+    return getRoot().getByRole('combobox');
   };
 
   const getListbox = () => {
