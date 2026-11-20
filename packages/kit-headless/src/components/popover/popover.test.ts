@@ -2,6 +2,18 @@ import { expect, test, type Page } from '@playwright/test';
 import { PopoverOpenKeys, createTestDriver } from './popover.driver';
 import { centerOf, recordPressEvents } from '../../utils/test-utils';
 
+const getTopPopoverText = (page: Page) =>
+  page.evaluate(() => {
+    const [first, second] = [...document.querySelectorAll('[popover]')].map((popover) =>
+      popover.getBoundingClientRect(),
+    );
+    const x =
+      (Math.max(first.left, second.left) + Math.min(first.right, second.right)) / 2;
+    const y =
+      (Math.max(first.top, second.top) + Math.min(first.bottom, second.bottom)) / 2;
+    return document.elementFromPoint(x, y)?.closest('[popover]')?.textContent?.trim();
+  });
+
 async function setup(page: Page, exampleName: string) {
   await page.goto(`/headless/popover/${exampleName}`);
 
@@ -86,42 +98,32 @@ test.describe('Mouse Behavior', () => {
     await expect(secondPopover).toBeVisible();
   });
 
-  test(`GIVEN a pair of manual popovers
-    WHEN clicking the first trigger on the page
-    AND clicking the second trigger
-    THEN the seconf popover should overlap the first`, async ({ page }) => {
+  test('opening the second popover after the first shows it on top', async ({ page }) => {
     const { driver: d } = await setup(page, 'test-popover-overlap');
-
     const [firstTrigger, secondTrigger] = await d.getAllTriggers();
     const [firstPopover, secondPopover] = await d.getAllPopovers();
 
     await firstTrigger.click();
+    await expect(firstPopover).toBeVisible();
     await secondTrigger.click();
+    await expect(secondPopover).toBeVisible();
 
-    const topPopover = page.locator(
-      `[popover]:above(:text("${await firstPopover.innerText()}"))`,
-    );
-
-    expect(await topPopover.innerText()).toBe(await secondPopover.innerText());
+    await expect
+      .poll(() => getTopPopoverText(page))
+      .toBe(await secondPopover.innerText());
   });
 
-  test(`GIVEN a pair of manual popovers
-    WHEN clicking the second trigger on the page
-    AND clicking the first trigger
-    THEN the first popover should overlap the second`, async ({ page }) => {
+  test('opening the first popover after the second shows it on top', async ({ page }) => {
     const { driver: d } = await setup(page, 'test-popover-overlap');
-
     const [firstTrigger, secondTrigger] = await d.getAllTriggers();
     const [firstPopover, secondPopover] = await d.getAllPopovers();
 
-    await firstTrigger.click();
     await secondTrigger.click();
+    await expect(secondPopover).toBeVisible();
+    await firstTrigger.click();
+    await expect(firstPopover).toBeVisible();
 
-    const topPopover = page.locator(
-      `[popover]:above(:text("${await secondPopover.innerText()}"))`,
-    );
-
-    expect(await topPopover.innerText()).toBe(await firstPopover.innerText());
+    await expect.poll(() => getTopPopoverText(page)).toBe(await firstPopover.innerText());
   });
 
   test(`GIVEN a pair of manual opened popovers
