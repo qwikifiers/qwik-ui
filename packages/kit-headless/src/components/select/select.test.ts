@@ -993,6 +993,89 @@ test.describe('Props', () => {
       await page.getByRole('button', { name: 'Change to Abby' }).click();
       await expect(d.getTrigger()).toHaveText(`Abby`);
     });
+
+    test('a bind:value chooses the option with that exact value, not one it contains', async ({
+      page,
+    }) => {
+      const { driver: d } = await setup(page, 'test-value-sync?value=BROTHER');
+
+      await expect(d.getTrigger()).toHaveText('Brother');
+    });
+
+    test('picking an option whose value contains another one sets bind:value to it', async ({
+      page,
+    }) => {
+      const { driver: d } = await setup(page, 'test-value-sync?value=SISTER');
+
+      await d.openListbox('click');
+      await d.getRoot().getByRole('option', { name: 'Brother' }).click();
+
+      await expect(d.getTrigger()).toHaveText('Brother');
+      await expect(page.getByTestId('value')).toHaveText('bind:value: "BROTHER"');
+    });
+
+    test('picking an option with an empty value sets bind:value to an empty string', async ({
+      page,
+    }) => {
+      const { driver: d } = await setup(page, 'test-value-sync?value=SISTER');
+
+      await d.openListbox('click');
+      await d.getRoot().getByRole('option', { name: 'Anyone' }).click();
+
+      await expect(d.getTrigger()).toHaveText('Anyone');
+      await expect(page.getByTestId('value')).toHaveText('bind:value: ""');
+    });
+
+    test('an empty bind:value chooses the option with an empty value', async ({
+      page,
+    }) => {
+      const { driver: d } = await setup(page, 'test-value-sync?value=');
+
+      await expect(d.getTrigger()).toHaveText('Anyone');
+    });
+
+    test('a pick updates a bind:value that starts empty', async ({ page }) => {
+      const { driver: d } = await setup(page, 'test-value-sync?value=&anyone=off');
+      await expect(d.getTrigger()).toHaveText('Select an option');
+
+      await d.openListbox('click');
+      await d.getRoot().getByRole('option', { name: 'Sister' }).click();
+
+      await expect(page.getByTestId('value')).toHaveText('bind:value: "SISTER"');
+    });
+  });
+
+  test.describe('onChange$', () => {
+    test('runs once for a pick', async ({ page }) => {
+      const { driver: d } = await setup(page, 'test-value-sync?value=SISTER');
+
+      await d.openListbox('click');
+      await d.getRoot().getByRole('option', { name: 'Brother' }).click();
+
+      await expect(d.getTrigger()).toHaveText('Brother');
+      await expect(page.getByTestId('changes')).toHaveText('onChange$: ["BROTHER"]');
+    });
+
+    test('does not run when the parent sets bind:value', async ({ page }) => {
+      const { driver: d } = await setup(page, 'test-value-sync?value=BROTHER');
+
+      await page.getByRole('button', { name: 'Set to Sister' }).click();
+
+      await expect(d.getTrigger()).toHaveText('Sister');
+      await expect(page.getByTestId('changes')).toHaveText('onChange$: []');
+    });
+
+    test('a pick shows while a slow onChange$ still runs', async ({ page }) => {
+      const { driver: d } = await setup(page, 'test-value-sync?value=SISTER&delay=3000');
+
+      await d.openListbox('click');
+      await d.getRoot().getByRole('option', { name: 'Brother' }).click();
+
+      await expect(d.getTrigger()).toHaveText('Brother', { timeout: 1000 });
+      await expect(page.getByTestId('value')).toHaveText('bind:value: "BROTHER"', {
+        timeout: 1000,
+      });
+    });
   });
 });
 

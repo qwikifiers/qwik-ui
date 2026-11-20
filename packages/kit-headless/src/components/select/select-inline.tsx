@@ -64,9 +64,7 @@ export const HSelectRoot: Component<SelectProps & InlineCompProps> = (
 
         isItemDisabled = child.props.disabled === true;
 
-        if (child.props.value) {
-          givenItemValue = child.props.value;
-        }
+        givenItemValue = child.props.value ?? null;
 
         // the default case isn't handled here, so we need to process the children to get to the label component
         if (child.props.children) {

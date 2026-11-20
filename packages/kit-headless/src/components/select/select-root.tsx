@@ -37,6 +37,8 @@ export type InternalSelectProps = {
 
 export type TMultiple<M> = M extends true ? string[] : string;
 
+const toValuesKey = (values: unknown[]) => JSON.stringify([...new Set(values)].sort());
+
 /**
  *  Value sets an initial value for the select. If multiple is true, value is disabled
  *
@@ -172,6 +174,7 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
     const currDisplayValueSig = useSignal<string | string[]>();
 
     const initialLoadSig = useSignal<boolean>(true);
+    const knownValuesKeySig = useSignal<string>();
     const highlightedItemRef = useSignal<HTMLLIElement>();
     const isDisabledSig = useSignal<boolean>(disabled ?? false);
     const isInvalidSig = useSignal<boolean>(props.invalid ?? false);
@@ -225,8 +228,16 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
       if (!bindValueSig) return;
       track(() => bindValueSig.value);
 
+      const boundValues = [bindValueSig.value].flat();
+      const items = [...itemsMapSig.value.values()];
+      knownValuesKeySig.value = toValuesKey(
+        items
+          .filter((item) => boundValues.includes(item.value))
+          .map((item) => item.value),
+      );
+
       for (const [index, item] of itemsMapSig.value) {
-        if (bindValueSig.value?.includes(item.value)) {
+        if (boundValues.includes(item.value)) {
           await selectionManager$(index, 'add');
 
           if (initialLoadSig.value) {
@@ -272,12 +283,12 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
         }
       }
 
-      if (onChange$ && selectedIndexSetSig.value.size > 0) {
-        await onChange$(context.multiple ? values : values[0]);
-      }
+      const valuesKey = toValuesKey(values);
+      const isPick = !initialLoadSig.value && valuesKey !== knownValuesKeySig.value;
+      knownValuesKeySig.value = valuesKey;
 
       // sync the user's given signal when an option is selected
-      if (bindValueSig && bindValueSig.value) {
+      if (isPick && bindValueSig) {
         const currUserSigValues = JSON.stringify(bindValueSig.value);
         const newUserSigValues = JSON.stringify(values);
 
@@ -297,6 +308,10 @@ export const HSelectImpl = component$<SelectProps<boolean> & InternalSelectProps
         bindDisplayTextSig.value = context.multiple
           ? context.currDisplayValueSig.value
           : context.currDisplayValueSig.value[0];
+      }
+
+      if (isPick && onChange$ && selectedIndexSetSig.value.size > 0) {
+        onChange$(context.multiple ? values : values[0]);
       }
     });
 
