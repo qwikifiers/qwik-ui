@@ -41,7 +41,7 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
     context.isListboxOpenSig.value = !context.isListboxOpenSig.value;
   });
 
-  const handleKeyDownSync$ = sync$((e: KeyboardEvent) => {
+  const handleKeyDownSync$ = sync$((e: KeyboardEvent, trigger: HTMLElement) => {
     const keys = [
       'ArrowUp',
       'ArrowDown',
@@ -56,6 +56,11 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
     ];
     if (keys.includes(e.key)) {
       e.preventDefault();
+    }
+
+    if (e.key === 'Escape' && trigger.hasAttribute('data-open')) {
+      e.preventDefault();
+      e.stopPropagation();
     }
   });
 

@@ -195,6 +195,52 @@ test.describe('Keyboard Behavior', () => {
       await expect(d.getListbox()).toBeHidden();
       await expect(d.getTrigger()).toHaveAttribute('aria-expanded', 'false');
     });
+
+    test('Escape in a select inside a modal closes only the listbox', async ({
+      page,
+    }) => {
+      await page.goto('/headless/select/test-in-modal');
+      await page.getByRole('button', { name: 'Open modal' }).click();
+      await expect(page.getByRole('dialog')).toBeVisible();
+      const d = createTestDriver(page.getByRole('dialog'));
+      await d.openListbox('click');
+
+      await page.keyboard.press('Escape');
+
+      await expect(d.getListbox()).toBeHidden();
+      await expect(page.getByRole('dialog')).toBeVisible();
+    });
+
+    test('Escape on an option of a select inside a modal closes only the listbox', async ({
+      page,
+    }) => {
+      await page.goto('/headless/select/test-in-modal');
+      await page.getByRole('button', { name: 'Open modal' }).click();
+      await expect(page.getByRole('dialog')).toBeVisible();
+      const d = createTestDriver(page.getByRole('dialog'));
+      await d.openListbox('click');
+      await page.keyboard.press('ArrowDown');
+      await expect(d.getHighlightedItem()).toBeFocused();
+
+      await page.keyboard.press('Escape');
+
+      await expect(d.getListbox()).toBeHidden();
+      await expect(page.getByRole('dialog')).toBeVisible();
+    });
+
+    test('a second Escape closes the modal around the select', async ({ page }) => {
+      await page.goto('/headless/select/test-in-modal');
+      await page.getByRole('button', { name: 'Open modal' }).click();
+      await expect(page.getByRole('dialog')).toBeVisible();
+      const d = createTestDriver(page.getByRole('dialog'));
+      await d.openListbox('click');
+      await page.keyboard.press('Escape');
+      await expect(d.getListbox()).toBeHidden();
+
+      await page.keyboard.press('Escape');
+
+      await expect(page.getByRole('dialog')).toBeHidden();
+    });
   });
 
   test.describe('data-highlighted navigation', () => {
