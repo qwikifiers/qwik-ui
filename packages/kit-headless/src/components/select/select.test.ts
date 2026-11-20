@@ -1144,6 +1144,36 @@ test.describe('A11y', () => {
     expect(afterClickResults.violations).toEqual([]);
   });
 
+  test('the trigger is a combobox named by the label', async ({ page }) => {
+    await setup(page, 'hero');
+
+    await expect(page.getByRole('combobox', { name: 'Logged in users' })).toBeVisible();
+  });
+
+  test('the trigger of a required select is required for screen readers', async ({
+    page,
+  }) => {
+    await setup(page, 'test-required');
+
+    await expect(page.getByRole('combobox')).toHaveAttribute('aria-required', 'true');
+  });
+
+  test('the trigger of a select with an error message is invalid for screen readers', async ({
+    page,
+  }) => {
+    await setup(page, 'test-required?error=on');
+
+    await expect(page.getByRole('combobox')).toHaveAttribute('aria-invalid', 'true');
+  });
+
+  test('the trigger of a select without an error message is not invalid', async ({
+    page,
+  }) => {
+    await setup(page, 'test-required');
+
+    await expect(page.getByRole('combobox')).not.toHaveAttribute('aria-invalid', 'true');
+  });
+
   test(`GIVEN a select with a group
         WHEN the user adds a new group
         THEN the group should have an aria-labelledby attribute

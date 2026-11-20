@@ -147,6 +147,9 @@ export const HSelectTrigger = component$<SelectTriggerProps>((props) => {
       aria-labelledby={`${valueId} ${labelId} `}
       aria-describedby={`${descriptionId} 
       ${errorMessageId}`}
+      role="combobox"
+      aria-required={context.required ? 'true' : undefined}
+      aria-invalid={context.isInvalidSig?.value ? 'true' : undefined}
       aria-expanded={context.isListboxOpenSig.value ? true : false}
       aria-haspopup="listbox"
       aria-controls={panelId}
