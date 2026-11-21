@@ -235,6 +235,36 @@ test.describe('Mouse Behavior', () => {
     expect(yDiff).toBeLessThan(0);
   });
 
+  test('a panel with shift beside its trigger stays inside the window while its trigger is partly in view', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-shift-scroll');
+    await d.getTrigger().click();
+    await expect(d.getPopover()).toBeVisible();
+
+    await page.getByTestId('scroller').evaluate((scroller) => scroller.scrollTo(0, 320));
+
+    await expect.poll(async () => (await d.getPopover().boundingBox())?.y).toBe(0);
+  });
+
+  test('a panel with shift beside its trigger stays next to it when the trigger scrolls out of view', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-shift-scroll');
+    await d.getTrigger().click();
+    await expect(d.getPopover()).toBeVisible();
+
+    await page.getByTestId('scroller').evaluate((scroller) => scroller.scrollTo(0, 400));
+
+    await expect
+      .poll(async () => {
+        const panel = await d.getPopover().boundingBox();
+        const trigger = await d.getTrigger().boundingBox();
+        return (panel?.y ?? 0) - ((trigger?.y ?? 0) + (trigger?.height ?? 0));
+      })
+      .toBeLessThanOrEqual(0);
+  });
+
   test('a trigger inside a form opens the popover without submitting the form', async ({
     page,
   }) => {

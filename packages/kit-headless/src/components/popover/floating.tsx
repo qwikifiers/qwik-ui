@@ -4,6 +4,7 @@ import {
   arrow as _arrow,
   flip as _flip,
   hide as _hide,
+  limitShift,
   offset as _offset,
   shift as _shift,
   autoUpdate,
@@ -35,7 +36,7 @@ export const FloatingPopover = component$((props: PropsOf<'div'>) => {
         _offset(context.gutter),
         _hide({ strategy: context.hide }),
         context.flip && _flip(),
-        context.shift && _shift(),
+        context.shift && _shift({ limiter: limitShift() }),
         context.arrow &&
           _arrow({
             padding: 0,
