@@ -209,6 +209,27 @@ test.describe('Placement and Positioning', () => {
     yDiff = await calculateYDiff();
     expect(yDiff).toBeGreaterThan(0);
   });
+
+  test('a tooltip with shift stays inside the window when its trigger is at the edge', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-floating-options');
+
+    await d.getTrigger().hover();
+    await expect(d.getTooltip()).toBeVisible();
+
+    await expect
+      .poll(async () => (await d.getTooltip().boundingBox())?.x)
+      .toBeGreaterThanOrEqual(0);
+  });
+
+  test('a tooltip with the fixed strategy is positioned fixed', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-floating-options');
+
+    await d.getTrigger().hover();
+
+    await expect(d.getTooltip()).toHaveCSS('position', 'fixed');
+  });
 });
 
 test.describe('Tooltip Animations', () => {

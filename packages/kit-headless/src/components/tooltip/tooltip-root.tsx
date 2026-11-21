@@ -43,7 +43,19 @@ export type TooltipRootProps = {
   placement?: Parameters<typeof HPopoverRoot>['0']['floating'];
 
   id?: string;
-} & Pick<Floating, 'flip' | 'gutter'>;
+} & Pick<
+  Floating,
+  | 'flip'
+  | 'gutter'
+  | 'shift'
+  | 'hide'
+  | 'strategy'
+  | 'transform'
+  | 'ancestorScroll'
+  | 'ancestorResize'
+  | 'elementResize'
+  | 'animationFrame'
+>;
 
 /**
  * TooltipProps combines TooltipRootProps and the properties of a div element.
@@ -60,6 +72,14 @@ export const HTooltipRoot = component$((props: TooltipProps) => {
     gutter,
     delayDuration = 0,
     flip,
+    shift,
+    hide,
+    strategy,
+    transform,
+    ancestorScroll,
+    ancestorResize,
+    elementResize,
+    animationFrame,
     onOpenChange$,
     ...rest
   } = props;
@@ -90,6 +110,14 @@ export const HTooltipRoot = component$((props: TooltipProps) => {
       id={localId}
       gutter={gutter}
       flip={flip}
+      shift={shift}
+      hide={hide}
+      strategy={strategy}
+      transform={transform}
+      ancestorScroll={ancestorScroll}
+      ancestorResize={ancestorResize}
+      elementResize={elementResize}
+      animationFrame={animationFrame}
     >
       <div id={localId} {...rest}>
         <Slot />
