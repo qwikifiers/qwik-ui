@@ -691,6 +691,7 @@ test.describe('Props', () => {
 
       await expect(page.locator('p')).toContainText('The selected value is: null');
       await d.getInput().press('ArrowDown');
+      await expect(d.getItemAt(1)).toHaveAttribute('data-highlighted');
       await d.getInput().press('Enter');
 
       await expect(page.locator('p')).toContainText('The selected value is: 1');
