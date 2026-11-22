@@ -1,4 +1,5 @@
-import { PropsOf, component$, useContext, useSignal } from '@builder.io/qwik';
+import { PropsOf, component$, useContext, useSignal, useTask$ } from '@builder.io/qwik';
+import { isServer } from '@builder.io/qwik/build';
 import { comboboxContextId } from './combobox-context';
 import { VisuallyHidden } from '../../utils/visually-hidden';
 import { ComboboxHiddenSelectOption } from './combobox-hidden-option';
@@ -28,6 +29,25 @@ export const HiddenNativeSelect = component$(
 
     // modular forms does something with refs, doesn't seem we need it, and it overrides the ref we define here.
     const nativeSelectRef = useSignal<HTMLSelectElement>();
+    const formValuesKeySig = useSignal<string>();
+
+    useTask$(function syncNativeSelect({ track }) {
+      const selectedValues = [track(() => context.selectedValuesSig.value)].flat();
+      const valuesKey = JSON.stringify([...selectedValues].sort());
+      if (valuesKey === formValuesKeySig.value) return;
+      formValuesKeySig.value = valuesKey;
+
+      const nativeSelect = nativeSelectRef.value;
+      if (isServer || !nativeSelect) return;
+
+      const [, ...itemOptions] = nativeSelect.options;
+      for (const option of itemOptions) {
+        option.selected = selectedValues.includes(option.value);
+      }
+
+      nativeSelect.dispatchEvent(new Event('input', { bubbles: true }));
+      nativeSelect.dispatchEvent(new Event('change', { bubbles: true }));
+    });
 
     // TODO: make conditional logic to show either input or select based on the size of the options.
     return (
@@ -57,13 +77,11 @@ export const HiddenNativeSelect = component$(
               {...rest}
             >
               <option />
-              {Array.from(context.itemsMapSig.value.entries()).map(([index, item]) => (
+              {Array.from(context.itemsMapSig.value.values()).map((item) => (
                 <ComboboxHiddenSelectOption
                   key={item.value}
                   value={item.value}
                   displayValue={item.displayValue}
-                  nativeSelectRef={nativeSelectRef}
-                  index={index}
                 />
               ))}
             </select>

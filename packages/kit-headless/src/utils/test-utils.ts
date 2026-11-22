@@ -27,6 +27,25 @@ export async function recordPressEvents(target: Locator) {
   };
 }
 
+const formEvents = ['input', 'change'];
+
+export async function recordFormEvents(form: Locator) {
+  await form.evaluate((element, types) => {
+    const seen: string[] = [];
+    for (const type of types) {
+      element.addEventListener(type, (event) => {
+        if (!(event.target instanceof HTMLSelectElement)) return;
+        const values = [...event.target.selectedOptions].map((option) => option.value);
+        seen.push(`${type}: ${values.join(', ')}`);
+        element.setAttribute('data-seen-events', JSON.stringify(seen));
+      });
+    }
+  }, formEvents);
+
+  return async (): Promise<string[]> =>
+    JSON.parse((await form.getAttribute('data-seen-events')) ?? '[]');
+}
+
 export async function centerOf(target: Locator) {
   const box = await target.boundingBox();
   assertBoundingBoxExists(box);
