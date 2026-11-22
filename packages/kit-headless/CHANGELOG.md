@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.9.0
+
+### Minor Changes
+
+- 🐞🩹 the Select trigger now has the `combobox` role and tells screen readers when the Select is required or invalid. Tests that find the trigger by the `button` role need to look for `combobox`. (by [@maiieul](https://github.com/maiieul) in [#1244](https://github.com/qwikifiers/qwik-ui/pull/1244))
+
+### Patch Changes
+
+- Select and Combobox now tell forms the value the user picked, so Modular Forms no longer stores an old or empty value. A form sent before any pick now sends the initial value. (by [@maiieul](https://github.com/maiieul) in [#1247](https://github.com/qwikifiers/qwik-ui/pull/1247))
+
+- 🐞🩹 a Select's `bind:value` now matches options exactly, keeps an empty option value and updates when it starts empty. `onChange$` runs once per pick, not for values the parent sets, and the pick shows without waiting for it. (by [@maiieul](https://github.com/maiieul) in [#1241](https://github.com/qwikifiers/qwik-ui/pull/1241))
+
+- 🐞🩹 with `shift`, a panel beside its trigger now stays next to it when the trigger scrolls out of view. (by [@maiieul](https://github.com/maiieul) in [#1233](https://github.com/qwikifiers/qwik-ui/pull/1233))
+
+- 🐞🩹 Escape in an open Select inside a Modal now closes only the listbox. (by [@maiieul](https://github.com/maiieul) in [#1243](https://github.com/qwikifiers/qwik-ui/pull/1243))
+
+- 🐞🩹 `Tooltip.Root` now passes `shift`, `hide`, `strategy`, `transform` and the auto-update options on to its popover. (by [@maiieul](https://github.com/maiieul) in [#1232](https://github.com/qwikifiers/qwik-ui/pull/1232))
+
 ## 0.8.2
 
 ### Patch Changes
