@@ -29,12 +29,13 @@ export async function recordPressEvents(target: Locator) {
 
 const formEvents = ['input', 'change'];
 
-export async function recordFormEvents(select: Locator) {
-  await select.evaluate((element: HTMLSelectElement, types) => {
+export async function recordFormEvents(form: Locator) {
+  await form.evaluate((element, types) => {
     const seen: string[] = [];
     for (const type of types) {
-      element.addEventListener(type, () => {
-        const values = [...element.selectedOptions].map((option) => option.value);
+      element.addEventListener(type, (event) => {
+        if (!(event.target instanceof HTMLSelectElement)) return;
+        const values = [...event.target.selectedOptions].map((option) => option.value);
         seen.push(`${type}: ${values.join(', ')}`);
         element.setAttribute('data-seen-events', JSON.stringify(seen));
       });
@@ -42,7 +43,7 @@ export async function recordFormEvents(select: Locator) {
   }, formEvents);
 
   return async (): Promise<string[]> =>
-    JSON.parse((await select.getAttribute('data-seen-events')) ?? '[]');
+    JSON.parse((await form.getAttribute('data-seen-events')) ?? '[]');
 }
 
 export async function centerOf(target: Locator) {

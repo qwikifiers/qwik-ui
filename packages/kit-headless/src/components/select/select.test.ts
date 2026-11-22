@@ -1510,7 +1510,7 @@ test.describe('Forms', () => {
     page,
   }) => {
     const { driver: d } = await setup(page, 'test-hidden-select');
-    const seenEvents = await recordFormEvents(d.getRoot().locator('select'));
+    const seenEvents = await recordFormEvents(page.locator('form'));
 
     await d.openListbox('click');
     await d.getRoot().getByRole('option', { name: 'Tim' }).click();
@@ -1525,7 +1525,7 @@ test.describe('Forms', () => {
 
   test('picking the selected option again sends no event', async ({ page }) => {
     const { driver: d } = await setup(page, 'test-hidden-select?value=Tim');
-    const seenEvents = await recordFormEvents(d.getRoot().locator('select'));
+    const seenEvents = await recordFormEvents(page.locator('form'));
 
     await d.openListbox('click');
     await d.getRoot().getByRole('option', { name: 'Tim' }).click();
@@ -1540,7 +1540,7 @@ test.describe('Forms', () => {
     page,
   }) => {
     const { driver: d } = await setup(page, 'form');
-    const seenEvents = await recordFormEvents(d.getRoot().locator('select'));
+    const seenEvents = await recordFormEvents(page.locator('form'));
 
     await d.openListbox('click');
     await d.getRoot().getByRole('option', { name: 'Tim' }).click();
@@ -1556,7 +1556,7 @@ test.describe('Forms', () => {
     page,
   }) => {
     const { driver: d } = await setup(page, 'test-hidden-select');
-    const seenEvents = await recordFormEvents(d.getRoot().locator('select'));
+    const seenEvents = await recordFormEvents(page.locator('form'));
 
     await page.getByRole('button', { name: 'Set to Abby' }).click();
 

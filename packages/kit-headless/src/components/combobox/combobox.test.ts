@@ -1193,7 +1193,7 @@ test.describe('Forms', () => {
     page,
   }) => {
     const { driver: d } = await setup(page, 'test-hidden-select');
-    const seenEvents = await recordFormEvents(d.getRoot().locator('select'));
+    const seenEvents = await recordFormEvents(page.locator('form'));
 
     await d.openListbox('click');
     await d.getRoot().getByRole('option', { name: 'Tim' }).click();
@@ -1206,16 +1206,61 @@ test.describe('Forms', () => {
       .toEqual(['input: Tim', 'change: Tim', 'input: Abby', 'change: Abby']);
   });
 
+  test('picking the selected option again clears it and sends one input and one change event', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-hidden-select?value=Tim');
+    const seenEvents = await recordFormEvents(page.locator('form'));
+
+    await d.openListbox('click');
+    await d.getRoot().getByRole('option', { name: 'Tim' }).click();
+
+    await expect(d.getItemAt(0)).not.toHaveAttribute('data-selected');
+    await expect.poll(seenEvents).toEqual(['input: ', 'change: ']);
+  });
+
+  test('a multiple combobox holds every picked option when it sends input', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-hidden-select-multiple');
+    const seenEvents = await recordFormEvents(page.locator('form'));
+
+    await d.openListbox('click');
+    await d.getRoot().getByRole('option', { name: 'Tim' }).click();
+    await expect.poll(seenEvents).toEqual(['input: Tim', 'change: Tim']);
+    await d.getRoot().getByRole('option', { name: 'Abby' }).click();
+
+    await expect
+      .poll(seenEvents)
+      .toEqual(['input: Tim', 'change: Tim', 'input: Tim, Abby', 'change: Tim, Abby']);
+  });
+
   test('setting bind:value in code sends one input and one change event with the new value', async ({
     page,
   }) => {
     const { driver: d } = await setup(page, 'test-hidden-select');
-    const seenEvents = await recordFormEvents(d.getRoot().locator('select'));
+    const seenEvents = await recordFormEvents(page.locator('form'));
 
     await page.getByRole('button', { name: 'Set to Abby' }).click();
 
     await expect(d.getInput()).toHaveValue('Abby');
     await expect.poll(seenEvents).toEqual(['input: Abby', 'change: Abby']);
+  });
+
+  test('setting bind:value in code to the options it already holds sends no event', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-hidden-select-multiple?value=Tim,Abby');
+    const seenEvents = await recordFormEvents(page.locator('form'));
+
+    await page.getByRole('button', { name: 'Set to Tim and Abby' }).click();
+    await expect(page.getByTestId('sets')).toHaveText('Sets: 1');
+    await d.openListbox('click');
+    await d.getRoot().getByRole('option', { name: 'Jim' }).click();
+
+    await expect
+      .poll(seenEvents)
+      .toEqual(['input: Tim, Jim, Abby', 'change: Tim, Jim, Abby']);
   });
 
   test('submitting without a pick sends the initial value', async ({ page }) => {
