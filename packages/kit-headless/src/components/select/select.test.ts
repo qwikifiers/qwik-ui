@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 import { createTestDriver } from './select.driver';
-import { centerOf, recordPressEvents } from '../../utils/test-utils';
+import { centerOf, recordFormEvents, recordPressEvents } from '../../utils/test-utils';
 
 async function setup(page: Page, exampleName: string) {
   await page.goto(`/headless/select/${exampleName}`);
@@ -1481,5 +1481,95 @@ test.describe('Styles', () => {
     await d.getTrigger().click();
 
     await expect(page.locator('[popover]')).toBeHidden();
+  });
+});
+
+test.describe('Forms', () => {
+  test('a Modular Forms form that requires a pick accepts the last option picked after another one', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'validation');
+
+    await d.openListbox('click');
+    await d.getRoot().getByRole('option', { name: 'Tim' }).click();
+    await expect(d.getTrigger()).toHaveText('Tim');
+    await d.openListbox('click');
+    await d.getRoot().getByRole('option', { name: 'Abby' }).click();
+    await expect(d.getTrigger()).toHaveText('Abby');
+
+    const submitted = page.waitForEvent(
+      'console',
+      (message) => message.text() === 'submitted!',
+    );
+    await page.getByRole('button', { name: 'Submit my form!' }).click();
+    await submitted;
+    await expect(page.getByText('Make sure to select an option')).toBeHidden();
+  });
+
+  test('after a pick, the hidden select sends one input event, then one change event, holding the picked option', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-hidden-select');
+    const seenEvents = await recordFormEvents(d.getRoot().locator('select'));
+
+    await d.openListbox('click');
+    await d.getRoot().getByRole('option', { name: 'Tim' }).click();
+    await expect(d.getTrigger()).toHaveText('Tim');
+    await d.openListbox('click');
+    await d.getRoot().getByRole('option', { name: 'Abby' }).click();
+
+    await expect
+      .poll(seenEvents)
+      .toEqual(['input: Tim', 'change: Tim', 'input: Abby', 'change: Abby']);
+  });
+
+  test('picking the selected option again sends no event', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-hidden-select?value=Tim');
+    const seenEvents = await recordFormEvents(d.getRoot().locator('select'));
+
+    await d.openListbox('click');
+    await d.getRoot().getByRole('option', { name: 'Tim' }).click();
+    await expect(d.getListbox()).toBeHidden();
+    await d.openListbox('click');
+    await d.getRoot().getByRole('option', { name: 'Abby' }).click();
+
+    await expect.poll(seenEvents).toEqual(['input: Abby', 'change: Abby']);
+  });
+
+  test('a multiple select holds every picked option when it sends input', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'form');
+    const seenEvents = await recordFormEvents(d.getRoot().locator('select'));
+
+    await d.openListbox('click');
+    await d.getRoot().getByRole('option', { name: 'Tim' }).click();
+    await expect.poll(seenEvents).toEqual(['input: Tim', 'change: Tim']);
+    await d.getRoot().getByRole('option', { name: 'Abby' }).click();
+
+    await expect
+      .poll(seenEvents)
+      .toEqual(['input: Tim', 'change: Tim', 'input: Tim, Abby', 'change: Tim, Abby']);
+  });
+
+  test('setting bind:value in code sends one input and one change event with the new value', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-hidden-select');
+    const seenEvents = await recordFormEvents(d.getRoot().locator('select'));
+
+    await page.getByRole('button', { name: 'Set to Abby' }).click();
+
+    await expect(d.getTrigger()).toHaveText('Abby');
+    await expect.poll(seenEvents).toEqual(['input: Abby', 'change: Abby']);
+  });
+
+  test('submitting without a pick sends the initial value', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-hidden-select?value=Jim');
+    await expect(d.getTrigger()).toHaveText('Jim');
+
+    await page.getByRole('button', { name: 'Submit' }).click();
+
+    await expect(page.getByTestId('submitted')).toHaveText('["Jim"]');
   });
 });

@@ -1,4 +1,5 @@
-import { PropsOf, component$, useContext, useSignal } from '@builder.io/qwik';
+import { PropsOf, component$, useContext, useSignal, useTask$ } from '@builder.io/qwik';
+import { isServer } from '@builder.io/qwik/build';
 import SelectContextId from './select-context';
 import { HiddenSelectOption } from './hidden-select-option';
 import { VisuallyHidden } from '../../utils/visually-hidden';
@@ -28,6 +29,30 @@ export const HHiddenNativeSelect = component$(
 
     // modular forms does something with refs, doesn't seem we need it, and it overrides the ref we define here.
     const nativeSelectRef = useSignal<HTMLSelectElement>();
+
+    useTask$(function syncNativeSelect({ track }) {
+      const selectedIndexes = track(() => context.selectedIndexSetSig.value);
+      const nativeSelect = nativeSelectRef.value;
+      if (isServer || !nativeSelect) return;
+
+      const selectedValues = [...selectedIndexes].map(
+        (index) => context.itemsMapSig.value.get(index)?.value,
+      );
+      const [, ...itemOptions] = nativeSelect.options;
+      let hasChanged = false;
+
+      for (const option of itemOptions) {
+        const isSelected = selectedValues.includes(option.value);
+        if (option.selected === isSelected) continue;
+        option.selected = isSelected;
+        hasChanged = true;
+      }
+
+      if (!hasChanged) return;
+
+      nativeSelect.dispatchEvent(new Event('input', { bubbles: true }));
+      nativeSelect.dispatchEvent(new Event('change', { bubbles: true }));
+    });
 
     // TODO: make conditional logic to show either input or select based on the size of the options.
     return (
@@ -62,7 +87,6 @@ export const HHiddenNativeSelect = component$(
                   key={item.value}
                   value={item.value}
                   displayValue={item.displayValue}
-                  nativeSelectRef={nativeSelectRef}
                   index={index}
                 />
               ))}

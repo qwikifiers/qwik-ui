@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 import { createTestDriver } from './combobox.driver';
-import { centerOf, recordPressEvents } from '../../utils/test-utils';
+import { centerOf, recordFormEvents, recordPressEvents } from '../../utils/test-utils';
 
 const reopenHighlightIssue = {
   annotation: {
@@ -1164,5 +1164,66 @@ test.describe('Modal', () => {
       expect(await seenEvents()).toEqual([]);
       await expect(outside).toHaveText('outside clicks: 0');
     });
+  });
+});
+
+test.describe('Forms', () => {
+  test('a Modular Forms form that requires a pick accepts the last option picked after another one', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'validation');
+
+    await d.openListbox('click');
+    await d.getRoot().getByRole('option', { name: 'Tim' }).click();
+    await expect(d.getInput()).toHaveValue('Tim');
+    await d.openListbox('click');
+    await d.getRoot().getByRole('option', { name: 'Abby' }).click();
+    await expect(d.getInput()).toHaveValue('Abby');
+
+    const submitted = page.waitForEvent(
+      'console',
+      (message) => message.text() === 'submitted!',
+    );
+    await page.getByRole('button', { name: 'Submit my form!' }).click();
+    await submitted;
+    await expect(page.getByText('Make sure to select an option')).toBeHidden();
+  });
+
+  test('after a pick, the hidden select sends one input event, then one change event, holding the picked option', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-hidden-select');
+    const seenEvents = await recordFormEvents(d.getRoot().locator('select'));
+
+    await d.openListbox('click');
+    await d.getRoot().getByRole('option', { name: 'Tim' }).click();
+    await expect(d.getInput()).toHaveValue('Tim');
+    await d.openListbox('click');
+    await d.getRoot().getByRole('option', { name: 'Abby' }).click();
+
+    await expect
+      .poll(seenEvents)
+      .toEqual(['input: Tim', 'change: Tim', 'input: Abby', 'change: Abby']);
+  });
+
+  test('setting bind:value in code sends one input and one change event with the new value', async ({
+    page,
+  }) => {
+    const { driver: d } = await setup(page, 'test-hidden-select');
+    const seenEvents = await recordFormEvents(d.getRoot().locator('select'));
+
+    await page.getByRole('button', { name: 'Set to Abby' }).click();
+
+    await expect(d.getInput()).toHaveValue('Abby');
+    await expect.poll(seenEvents).toEqual(['input: Abby', 'change: Abby']);
+  });
+
+  test('submitting without a pick sends the initial value', async ({ page }) => {
+    const { driver: d } = await setup(page, 'test-hidden-select?value=Jim');
+    await expect(d.getInput()).toHaveValue('Jim');
+
+    await page.getByRole('button', { name: 'Submit' }).click();
+
+    await expect(page.getByTestId('submitted')).toHaveText('["Jim"]');
   });
 });
