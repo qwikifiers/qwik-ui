@@ -29,23 +29,21 @@ export const HiddenNativeSelect = component$(
 
     // modular forms does something with refs, doesn't seem we need it, and it overrides the ref we define here.
     const nativeSelectRef = useSignal<HTMLSelectElement>();
+    const formValuesKeySig = useSignal<string>();
 
     useTask$(function syncNativeSelect({ track }) {
       const selectedValues = [track(() => context.selectedValuesSig.value)].flat();
+      const valuesKey = JSON.stringify([...selectedValues].sort());
+      if (valuesKey === formValuesKeySig.value) return;
+      formValuesKeySig.value = valuesKey;
+
       const nativeSelect = nativeSelectRef.value;
       if (isServer || !nativeSelect) return;
 
       const [, ...itemOptions] = nativeSelect.options;
-      let hasChanged = false;
-
       for (const option of itemOptions) {
-        const isSelected = selectedValues.includes(option.value);
-        if (option.selected === isSelected) continue;
-        option.selected = isSelected;
-        hasChanged = true;
+        option.selected = selectedValues.includes(option.value);
       }
-
-      if (!hasChanged) return;
 
       nativeSelect.dispatchEvent(new Event('input', { bubbles: true }));
       nativeSelect.dispatchEvent(new Event('change', { bubbles: true }));
